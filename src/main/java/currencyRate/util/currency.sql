@@ -7,7 +7,7 @@ USE `currency-rate` ;
 -- -----------------------------------------------------
 -- Table `currency-rate`.`currency`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`currency` (
+CREATE TABLE IF NOT EXISTS `currency-rate`.`currency` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `currency_date` DATE NOT NULL,
   `usd` DOUBLE NOT NULL,
