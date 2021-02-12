@@ -9,7 +9,7 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "currency_type", schema = "currency_rate")
-public class Type {
+public class TypeCurrency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,16 +23,16 @@ public class Type {
     @JoinColumn(name = "FK_bank")
     private Bank bank;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
-    private List<Select> selects;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "typeCurrency")
+    private List<SelectCurrency> selectCurrencies;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Type type = (Type) o;
-        return id == type.id &&
-                Objects.equals(name, type.name);
+        TypeCurrency typeCurrency = (TypeCurrency) o;
+        return id == typeCurrency.id &&
+                Objects.equals(name, typeCurrency.name);
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.Objects;
 @Data
 @Entity
 @Table(name = "currency_select", schema = "currency_rate")
-public class Select {
+public class SelectCurrency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,19 +25,19 @@ public class Select {
 
     @ManyToOne
     @JoinColumn(name = "FK_currencyType")
-    private Type type;
+    private TypeCurrency typeCurrency;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "select")
-    private List<Value> values;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "selectCurrency")
+    private List<ValueCurrency> valueCurrencies;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Select select1 = (Select) o;
-        return id == select1.id &&
-                Objects.equals(select, select1.select) &&
-                Objects.equals(currencyDate, select1.currencyDate);
+        SelectCurrency selectCurrency1 = (SelectCurrency) o;
+        return id == selectCurrency1.id &&
+                Objects.equals(select, selectCurrency1.select) &&
+                Objects.equals(currencyDate, selectCurrency1.currencyDate);
     }
 
     @Override

@@ -1,14 +1,14 @@
 package currencyRate.service;
 
-import currencyRate.entity.Select;
+import currencyRate.entity.SelectCurrency;
 
 public interface SelectService {
 
-    Select add(Select select);
+    SelectCurrency add(SelectCurrency selectCurrency);
 
     void delete(int id);
 
-    Select getById(int id);
+    SelectCurrency getById(int id);
 
-    Select edit(Select select);
+    SelectCurrency edit(SelectCurrency selectCurrency);
 }

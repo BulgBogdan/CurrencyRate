@@ -1,6 +1,6 @@
 package currencyRate.service.Impl;
 
-import currencyRate.entity.Value;
+import currencyRate.entity.ValueCurrency;
 import currencyRate.repository.ValueRepository;
 import currencyRate.service.ValueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class ValueServiceImpl implements ValueService {
     }
 
     @Override
-    public Value add(Value value) {
-        return valueRepository.saveAndFlush(value);
+    public ValueCurrency add(ValueCurrency valueCurrency) {
+        return valueRepository.saveAndFlush(valueCurrency);
     }
 
     @Override
@@ -30,22 +30,22 @@ public class ValueServiceImpl implements ValueService {
     }
 
     @Override
-    public Value getById(int id) {
+    public ValueCurrency getById(int id) {
         return valueRepository.getOne(id);
     }
 
     @Override
-    public Value edit(Value value) {
-        return valueRepository.saveAndFlush(value);
+    public ValueCurrency edit(ValueCurrency valueCurrency) {
+        return valueRepository.saveAndFlush(valueCurrency);
     }
 
     @Override
-    public List<Value> getAll() {
+    public List<ValueCurrency> getAll() {
         return valueRepository.findAll();
     }
 
     @Override
-    public Page<Value> findPaginated(int page, int pageSize) {
+    public Page<ValueCurrency> findPaginated(int page, int pageSize) {
         return null;
     }
 }

@@ -20,7 +20,7 @@ public class Bank {
     private String bankName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bank")
-    private List<Type> types;
+    private List<TypeCurrency> typeCurrencies;
 
     @Override
     public boolean equals(Object o) {

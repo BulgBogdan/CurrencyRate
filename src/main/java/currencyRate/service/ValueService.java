@@ -1,21 +1,21 @@
 package currencyRate.service;
 
-import currencyRate.entity.Value;
+import currencyRate.entity.ValueCurrency;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface ValueService {
 
-    Value add(Value value);
+    ValueCurrency add(ValueCurrency valueCurrency);
 
     void delete(int id);
 
-    Value getById(int id);
+    ValueCurrency getById(int id);
 
-    Value edit(Value value);
+    ValueCurrency edit(ValueCurrency valueCurrency);
 
-    List<Value> getAll();
+    List<ValueCurrency> getAll();
 
-    Page<Value> findPaginated(int page, int pageSize);
+    Page<ValueCurrency> findPaginated(int page, int pageSize);
 }

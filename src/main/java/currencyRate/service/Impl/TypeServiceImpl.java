@@ -1,6 +1,6 @@
 package currencyRate.service.Impl;
 
-import currencyRate.entity.Type;
+import currencyRate.entity.TypeCurrency;
 import currencyRate.repository.TypeRepository;
 import currencyRate.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public Type add(Type type) {
-        return typeRepository.saveAndFlush(type);
+    public TypeCurrency add(TypeCurrency typeCurrency) {
+        return typeRepository.saveAndFlush(typeCurrency);
     }
 
     @Override
@@ -30,27 +30,27 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public Type edit(Type type) {
-        return typeRepository.saveAndFlush(type);
+    public TypeCurrency edit(TypeCurrency typeCurrency) {
+        return typeRepository.saveAndFlush(typeCurrency);
     }
 
     @Override
-    public Type getByName(String name) {
+    public TypeCurrency getByName(String name) {
         return typeRepository.getByName(name);
     }
 
     @Override
-    public Type getById(int id) {
+    public TypeCurrency getById(int id) {
         return typeRepository.getOne(id);
     }
 
     @Override
-    public List<Type> getAll() {
+    public List<TypeCurrency> getAll() {
         return typeRepository.findAll();
     }
 
     @Override
-    public Page<Type> findPaginated(int page, int pageSize) {
+    public Page<TypeCurrency> findPaginated(int page, int pageSize) {
         return null;
     }
 }

@@ -1,23 +1,23 @@
 package currencyRate.service;
 
-import currencyRate.entity.Type;
+import currencyRate.entity.TypeCurrency;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface TypeService {
 
-    Type add(Type type);
+    TypeCurrency add(TypeCurrency typeCurrency);
 
     void delete(int id);
 
-    Type edit(Type type);
+    TypeCurrency edit(TypeCurrency typeCurrency);
 
-    Type getByName(String name);
+    TypeCurrency getByName(String name);
 
-    Type getById(int id);
+    TypeCurrency getById(int id);
 
-    List<Type> getAll();
+    List<TypeCurrency> getAll();
 
-    Page<Type> findPaginated(int page, int pageSize);
+    Page<TypeCurrency> findPaginated(int page, int pageSize);
 }

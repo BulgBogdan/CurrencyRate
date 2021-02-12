@@ -1,6 +1,6 @@
 package currencyRate.service.Impl;
 
-import currencyRate.entity.Select;
+import currencyRate.entity.SelectCurrency;
 import currencyRate.repository.SelectRepository;
 import currencyRate.service.SelectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,8 @@ public class SelectServiceImpl implements SelectService {
     }
 
     @Override
-    public Select add(Select select) {
-        return selectRepository.saveAndFlush(select);
+    public SelectCurrency add(SelectCurrency selectCurrency) {
+        return selectRepository.saveAndFlush(selectCurrency);
     }
 
     @Override
@@ -27,12 +27,12 @@ public class SelectServiceImpl implements SelectService {
     }
 
     @Override
-    public Select getById(int id) {
+    public SelectCurrency getById(int id) {
         return selectRepository.getOne(id);
     }
 
     @Override
-    public Select edit(Select select) {
-        return selectRepository.saveAndFlush(select);
+    public SelectCurrency edit(SelectCurrency selectCurrency) {
+        return selectRepository.saveAndFlush(selectCurrency);
     }
 }

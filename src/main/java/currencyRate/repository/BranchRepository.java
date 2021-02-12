@@ -1,9 +1,9 @@
 package currencyRate.repository;
 
-import currencyRate.entity.ValueCurrency;
+import currencyRate.entity.BankBranch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ValueRepository extends JpaRepository<ValueCurrency, Integer> {
+public interface BranchRepository extends JpaRepository<BankBranch, Integer> {
 }
