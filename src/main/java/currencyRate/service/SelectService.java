@@ -2,6 +2,8 @@ package currencyRate.service;
 
 import currencyRate.entity.SelectCurrency;
 
+import java.util.List;
+
 public interface SelectService {
 
     SelectCurrency add(SelectCurrency selectCurrency);
@@ -11,4 +13,6 @@ public interface SelectService {
     SelectCurrency getById(int id);
 
     SelectCurrency edit(SelectCurrency selectCurrency);
+
+    List<SelectCurrency> getAll();
 }

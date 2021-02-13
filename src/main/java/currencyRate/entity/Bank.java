@@ -16,11 +16,11 @@ public class Bank {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "bank_name")
-    private String bankName;
+    @Column(name = "name")
+    private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bank")
-    private List<TypeCurrency> typeCurrencies;
+    private List<BankBranch> bankBranches;
 
     @Override
     public boolean equals(Object o) {
@@ -28,11 +28,11 @@ public class Bank {
         if (o == null || getClass() != o.getClass()) return false;
         Bank bank = (Bank) o;
         return id == bank.id &&
-                Objects.equals(bankName, bank.bankName);
+                Objects.equals(name, bank.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, bankName);
+        return Objects.hash(id, name);
     }
 }

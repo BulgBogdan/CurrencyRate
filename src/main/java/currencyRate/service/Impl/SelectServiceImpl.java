@@ -6,6 +6,8 @@ import currencyRate.service.SelectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SelectServiceImpl implements SelectService {
 
@@ -34,5 +36,10 @@ public class SelectServiceImpl implements SelectService {
     @Override
     public SelectCurrency edit(SelectCurrency selectCurrency) {
         return selectRepository.saveAndFlush(selectCurrency);
+    }
+
+    @Override
+    public List<SelectCurrency> getAll() {
+        return selectRepository.findAll();
     }
 }

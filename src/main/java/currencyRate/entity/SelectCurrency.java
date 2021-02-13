@@ -3,7 +3,6 @@ package currencyRate.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,31 +16,23 @@ public class SelectCurrency {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "currency_select")
+    @Column(name = "select")
     private String select;
 
-    @Column(name = "currency_date")
-    private Date currencyDate;
-
-    @ManyToOne
-    @JoinColumn(name = "FK_currencyType")
-    private TypeCurrency typeCurrency;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "selectCurrency")
-    private List<ValueCurrency> valueCurrencies;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "select")
+    private List<ValueCurrency> values;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SelectCurrency selectCurrency1 = (SelectCurrency) o;
-        return id == selectCurrency1.id &&
-                Objects.equals(select, selectCurrency1.select) &&
-                Objects.equals(currencyDate, selectCurrency1.currencyDate);
+        SelectCurrency that = (SelectCurrency) o;
+        return id == that.id &&
+                Objects.equals(select, that.select);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, select, currencyDate);
+        return Objects.hash(id, select);
     }
 }

@@ -16,15 +16,11 @@ public class TypeCurrency {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "currency_name")
+    @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "FK_bank")
-    private Bank bank;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "typeCurrency")
-    private List<SelectCurrency> selectCurrencies;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
+    private List<ValueCurrency> values;
 
     @Override
     public boolean equals(Object o) {

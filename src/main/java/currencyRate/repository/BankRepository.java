@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BankRepository extends JpaRepository<Bank, Integer> {
 
-    @Query("select b from Bank b where b.bankName = :bankName")
+    @Query("select b from Bank b where b.name = :bankName")
     Bank getByName(@Param("bankName") String bankName);
 }

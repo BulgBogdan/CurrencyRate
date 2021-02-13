@@ -16,11 +16,18 @@ DROP TABLE IF EXISTS `currency_rate`.`currency_type`;
 
 CREATE TABLE IF NOT EXISTS `currency_rate`.`currency_type`
 (
-  `id`            INT         NOT NULL AUTO_INCREMENT,
-  `currency_name` VARCHAR(45) NOT NULL,
+  `id`   INT         NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB;
+
+insert into currency_rate.currency_type (name)
+values ('USD');
+insert into currency_rate.currency_type (name)
+values ('EUR');
+insert into currency_rate.currency_type (name)
+values ('RUB');
 
 -- -----------------------------------------------------
 -- Table `currency_rate`.`currency_select`
@@ -29,11 +36,16 @@ DROP TABLE IF EXISTS `currency_rate`.`currency_select`;
 
 CREATE TABLE IF NOT EXISTS `currency_rate`.`currency_select`
 (
-  `id`              INT         NOT NULL AUTO_INCREMENT,
-  `currency_select` VARCHAR(45) NOT NULL,
+  `id`     INT         NOT NULL AUTO_INCREMENT,
+  `select` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB;
+
+insert into currency_rate.currency_select (`select`)
+values ('Продажа');
+insert into currency_rate.currency_select (`select`)
+values ('Покупка');
 
 -- -----------------------------------------------------
 -- Table `currency_rate`.`bank`
@@ -42,11 +54,26 @@ DROP TABLE IF EXISTS `currency_rate`.`bank`;
 
 CREATE TABLE IF NOT EXISTS `currency_rate`.`bank`
 (
-  `id`        INT         NOT NULL,
-  `bank_name` VARCHAR(45) NOT NULL,
+  `id`   INT         NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB;
+
+insert into currency_rate.bank (name)
+values ('Беларусбанк');
+insert into currency_rate.bank (name)
+values ('Белагропромбанк');
+insert into currency_rate.bank (name)
+values ('Банк Дабрабыт');
+insert into currency_rate.bank (name)
+values ('Белгазпромбанк');
+insert into currency_rate.bank (name)
+values ('Абсолютбанк');
+insert into currency_rate.bank (name)
+values ('ВТБ Банк');
+insert into currency_rate.bank (name)
+values ('БСБ Банк');
 
 -- -----------------------------------------------------
 -- Table `currency_rate`.`city`
@@ -61,6 +88,19 @@ CREATE TABLE IF NOT EXISTS `currency_rate`.`city`
 )
   ENGINE = InnoDB;
 
+insert into currency_rate.city (name)
+values ('Брест');
+insert into currency_rate.city (name)
+values ('Витебск');
+insert into currency_rate.city (name)
+values ('Гомель');
+insert into currency_rate.city (name)
+values ('Гродно');
+insert into currency_rate.city (name)
+values ('Минск');
+insert into currency_rate.city (name)
+values ('Могилев');
+
 -- -----------------------------------------------------
 -- Table `currency_rate`.`bank_branch`
 -- -----------------------------------------------------
@@ -71,7 +111,6 @@ CREATE TABLE IF NOT EXISTS `currency_rate`.`bank_branch`
   `id`        INT          NOT NULL AUTO_INCREMENT,
   `name`      VARCHAR(200) NOT NULL,
   `address`   VARCHAR(200) NOT NULL,
-  `work_time` DATETIME     NOT NULL,
   `bank_id`   INT          NOT NULL,
   `city_id`   INT          NOT NULL,
   PRIMARY KEY (`id`),
@@ -99,7 +138,7 @@ DROP TABLE IF EXISTS `currency_rate`.`currency_value`;
 CREATE TABLE IF NOT EXISTS `currency_rate`.`currency_value`
 (
   `id`                 INT    NOT NULL AUTO_INCREMENT,
-  `currencyValue`      DOUBLE NOT NULL,
+  `value`              DOUBLE NOT NULL,
   `bank_branch_id`     INT    NOT NULL,
   `currency_type_id`   INT    NOT NULL,
   `currency_select_id` INT    NOT NULL,

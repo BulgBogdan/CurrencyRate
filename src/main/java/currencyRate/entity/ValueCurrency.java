@@ -16,11 +16,19 @@ public class ValueCurrency {
     private int id;
 
     @Column(name = "value")
-    private double currencyValue;
+    private double value;
 
     @ManyToOne
-    @JoinColumn(name = "FK_currencySelect")
-    private SelectCurrency selectCurrency;
+    @JoinColumn(name = "bank_branch_id")
+    private BankBranch branch;
+
+    @ManyToOne
+    @JoinColumn(name = "currency_type_id")
+    private TypeCurrency type;
+
+    @ManyToOne
+    @JoinColumn(name = "currency_select_id")
+    private SelectCurrency select;
 
     @Override
     public boolean equals(Object o) {
@@ -28,11 +36,11 @@ public class ValueCurrency {
         if (o == null || getClass() != o.getClass()) return false;
         ValueCurrency valueCurrency = (ValueCurrency) o;
         return id == valueCurrency.id &&
-                Double.compare(valueCurrency.currencyValue, currencyValue) == 0;
+                Double.compare(valueCurrency.value, value) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, currencyValue);
+        return Objects.hash(id, value);
     }
 }
