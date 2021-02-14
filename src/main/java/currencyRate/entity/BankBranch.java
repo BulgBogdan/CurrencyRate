@@ -22,6 +22,9 @@ public class BankBranch {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "filial_id")
+    private int filialId;
+
     @ManyToOne
     @JoinColumn(name = "bank_id")
     private Bank bank;

@@ -111,6 +111,7 @@ CREATE TABLE IF NOT EXISTS `currency_rate`.`bank_branch`
   `id`        INT          NOT NULL AUTO_INCREMENT,
   `name`      VARCHAR(200) NOT NULL,
   `address`   VARCHAR(200) NOT NULL,
+  `filial_id` INT          NOT NULL,
   `bank_id`   INT          NOT NULL,
   `city_id`   INT          NOT NULL,
   PRIMARY KEY (`id`),

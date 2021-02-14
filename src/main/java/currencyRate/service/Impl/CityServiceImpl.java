@@ -34,6 +34,11 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
+    public City getByName(String cityName) {
+        return cityRepository.getByName(cityName);
+    }
+
+    @Override
     public City edit(City city) {
         return cityRepository.saveAndFlush(city);
     }
