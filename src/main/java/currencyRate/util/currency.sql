@@ -138,11 +138,11 @@ DROP TABLE IF EXISTS `currency_rate`.`currency_value`;
 
 CREATE TABLE IF NOT EXISTS `currency_rate`.`currency_value`
 (
-  `id`                 INT    NOT NULL AUTO_INCREMENT,
-  `value`              DOUBLE NOT NULL,
-  `bank_branch_id`     INT    NOT NULL,
-  `currency_type_id`   INT    NOT NULL,
-  `currency_select_id` INT    NOT NULL,
+  `id`                 INT         NOT NULL AUTO_INCREMENT,
+  `value`              VARCHAR(45) NOT NULL,
+  `bank_branch_id`     INT         NOT NULL,
+  `currency_type_id`   INT         NOT NULL,
+  `currency_select_id` INT         NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_currency_value_bank_branch1_idx` (`bank_branch_id` ASC) VISIBLE,
   INDEX `fk_currency_value_currency_select1_idx` (`currency_select_id` ASC) VISIBLE,

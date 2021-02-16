@@ -5,10 +5,12 @@ import currencyRate.repository.SelectRepository;
 import currencyRate.service.SelectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class SelectServiceImpl implements SelectService {
 
     private SelectRepository selectRepository;

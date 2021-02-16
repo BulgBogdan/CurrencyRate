@@ -16,7 +16,7 @@ public class ValueCurrency {
     private int id;
 
     @Column(name = "value")
-    private double value;
+    private String value;
 
     @ManyToOne
     @JoinColumn(name = "bank_branch_id")
@@ -34,9 +34,9 @@ public class ValueCurrency {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ValueCurrency valueCurrency = (ValueCurrency) o;
-        return id == valueCurrency.id &&
-                Double.compare(valueCurrency.value, value) == 0;
+        ValueCurrency that = (ValueCurrency) o;
+        return id == that.id &&
+                Objects.equals(value, that.value);
     }
 
     @Override
