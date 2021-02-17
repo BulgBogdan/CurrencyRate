@@ -14,8 +14,14 @@ import java.text.SimpleDateFormat;
 
 public final class Parser {
 
-    public static String getTodayDate() {
+    public static String getTodayDateYMD() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date todayDate = new java.util.Date();
+        return dateFormat.format(todayDate);
+    }
+
+    public static String getTodayDateMDY() {
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         java.util.Date todayDate = new java.util.Date();
         return dateFormat.format(todayDate);
     }
