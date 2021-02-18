@@ -62,5 +62,4 @@ public final class Parser {
         }
         return valueCurrency;
     }
-
 }
