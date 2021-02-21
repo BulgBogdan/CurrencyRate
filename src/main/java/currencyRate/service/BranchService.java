@@ -16,4 +16,6 @@ public interface BranchService {
 
     List<BankBranch> getAll();
 
+    List<BankBranch> getBranchesByBankId(int id);
+
 }

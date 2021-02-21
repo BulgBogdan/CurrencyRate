@@ -44,4 +44,9 @@ public class BranchServiceImpl implements BranchService {
     public BankBranch getByFilialName(String name) {
         return branchRepository.getByFilialName(name);
     }
+
+    @Override
+    public List<BankBranch> getBranchesByBankId(int id) {
+        return branchRepository.getBranchesByBankId(id);
+    }
 }
