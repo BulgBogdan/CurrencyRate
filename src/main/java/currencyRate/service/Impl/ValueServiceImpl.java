@@ -33,7 +33,7 @@ public class ValueServiceImpl implements ValueService {
 
     @Override
     public ValueCurrency getById(int id) {
-        return valueRepository.getOne(id);
+        return valueRepository.getById(id);
     }
 
     @Override

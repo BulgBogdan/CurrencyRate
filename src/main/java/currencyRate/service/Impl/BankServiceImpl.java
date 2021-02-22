@@ -38,7 +38,7 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public Bank getById(int id) {
-        return bankRepository.getOne(id);
+        return bankRepository.getById(id);
     }
 
     @Override

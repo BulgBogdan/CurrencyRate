@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TypeRepository extends JpaRepository<TypeCurrency, Integer> {
 
+    @Query("select t from TypeCurrency t where t.id = :id")
+    TypeCurrency getById(@Param("id") int id);
+
     @Query("select t from TypeCurrency t where t.name = :nameType")
     TypeCurrency getByName(@Param("name") String nameType);
 }

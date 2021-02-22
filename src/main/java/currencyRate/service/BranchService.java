@@ -10,7 +10,7 @@ public interface BranchService {
 
     BankBranch edit(BankBranch bankBranch);
 
-    BankBranch getById(int id);
+    BankBranch getFilialById(int id);
 
     BankBranch getByFilialName(String name);
 

@@ -43,7 +43,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public TypeCurrency getById(int id) {
-        return typeRepository.getOne(id);
+        return typeRepository.getById(id);
     }
 
     @Override

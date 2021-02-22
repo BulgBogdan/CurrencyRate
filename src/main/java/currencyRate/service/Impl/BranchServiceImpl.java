@@ -31,8 +31,8 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public BankBranch getById(int id) {
-        return branchRepository.getOne(id);
+    public BankBranch getFilialById(int id) {
+        return branchRepository.getFilialById(id);
     }
 
     @Override

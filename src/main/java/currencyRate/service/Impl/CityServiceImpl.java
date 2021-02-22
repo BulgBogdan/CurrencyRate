@@ -32,7 +32,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City getById(int id) {
-        return cityRepository.getOne(id);
+        return cityRepository.getById(id);
     }
 
     @Override

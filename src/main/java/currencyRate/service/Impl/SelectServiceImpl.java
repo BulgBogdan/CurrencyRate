@@ -32,7 +32,7 @@ public class SelectServiceImpl implements SelectService {
 
     @Override
     public SelectCurrency getById(int id) {
-        return selectRepository.getOne(id);
+        return selectRepository.getById(id);
     }
 
     @Override
