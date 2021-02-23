@@ -1,4 +1,4 @@
-package currencyRate.tasks;
+package currencyRate.tasks.parser;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -11,6 +11,7 @@ import java.net.URLConnection;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public final class Parser {
 
@@ -61,5 +62,24 @@ public final class Parser {
             e.printStackTrace();
         }
         return valueCurrency;
+    }
+
+    public static String getBestValue(List<String> values, String currencySelect) {
+        String value = "";
+        double bestValue = 0;
+        for (String val : values) {
+            if (currencySelect.equalsIgnoreCase("продажа")
+                    && (Double.parseDouble(val) < bestValue)) {
+                value = val;
+            } else if (currencySelect.equalsIgnoreCase("покупка")
+                    && (Double.parseDouble(val) > bestValue)) {
+                value = val;
+            } else if (currencySelect.equalsIgnoreCase("продажа")
+                    && (bestValue == 0)) {
+                value = val;
+                bestValue = Double.parseDouble(value);
+            }
+        }
+        return value;
     }
 }

@@ -1,4 +1,4 @@
-package currencyRate.tasks.banks;
+package currencyRate.tasks.parser;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;

@@ -48,7 +48,8 @@ public final class ParserBelarusbank {
                 JSONObject jsonObject = (JSONObject) object;
                 if (workTimeFilial((String) jsonObject.get("info_worktime"))
                         &&
-                        (Double.parseDouble((String) jsonObject.get(typeSelectMoney)) < Double.parseDouble(minOutValue))) {
+                        (Double.parseDouble((String) jsonObject.get(typeSelectMoney))
+                                < Double.parseDouble(minOutValue))) {
                     minOutValue = (String) jsonObject.get(typeSelectMoney);
                 }
             }
@@ -60,7 +61,8 @@ public final class ParserBelarusbank {
                 JSONObject jsonObject = (JSONObject) object;
                 if (workTimeFilial((String) jsonObject.get("info_worktime"))
                         &&
-                        (Double.parseDouble((String) jsonObject.get(typeSelectMoney)) > Double.parseDouble(maxInValue))) {
+                        (Double.parseDouble((String) jsonObject.get(typeSelectMoney))
+                                > Double.parseDouble(maxInValue))) {
                     maxInValue = (String) jsonObject.get(typeSelectMoney);
                 }
             }
@@ -108,7 +110,11 @@ public final class ParserBelarusbank {
         return closeOrOpen;
     }
 
-    public static BankBranch getFilial(Bank bank, City city, String typeSelectMoney, JSONArray arrayJson, String value) {
+    public static BankBranch getFilial(Bank bank,
+                                       City city,
+                                       String typeSelectMoney,
+                                       JSONArray arrayJson,
+                                       String value) {
         BankBranch bankBranch = new BankBranch();
         for (Object object : arrayJson) {
             JSONObject jsonObject = (JSONObject) object;
