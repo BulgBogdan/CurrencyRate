@@ -45,11 +45,11 @@ public final class Parser {
         return inputLine;
     }
 
-    public static double getValueFromNBRB(String date, int currencyCode) {
+    public static double getValueFromNBRB(String date, String typeCurrency) {
         double valueCurrency = 0;
         try {
 
-            String urlFromBank = "https://www.nbrb.by/api/exrates/rates/" + currencyCode + "?ondate=" + date;
+            String urlFromBank = "https://www.nbrb.by/api/exrates/rates/" + typeCurrency + "?parammode=2&ondate=" + date;
             URL url = new URL(urlFromBank);
             URLConnection connection = url.openConnection();
             BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
