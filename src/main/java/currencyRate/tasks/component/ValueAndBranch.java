@@ -7,7 +7,7 @@ import currencyRate.entity.ValueCurrency;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WorkValue {
+public class ValueAndBranch {
 
     ValueCurrency getValueCurrency(BankBranch branch, SelectCurrency select, TypeCurrency type, String value) {
         ValueCurrency valueCurrency = new ValueCurrency();
@@ -15,6 +15,18 @@ public class WorkValue {
         valueCurrency.setSelect(select);
         valueCurrency.setType(type);
         valueCurrency.setValue(value);
+        return valueCurrency;
+    }
+
+    BankBranch getEditBranch(BankBranch branch, BankBranch editBranch) {
+        branch.setFilialId(editBranch.getFilialId());
+        branch.setName(editBranch.getName());
+        branch.setAddress(editBranch.getAddress());
+        return branch;
+    }
+
+    ValueCurrency getEditValueCurrency(ValueCurrency valueCurrency, ValueCurrency editValueCurrency) {
+        valueCurrency.setValue(editValueCurrency.getValue());
         return valueCurrency;
     }
 }
