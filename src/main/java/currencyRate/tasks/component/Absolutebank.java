@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @PropertySource("classpath:banks.properties")
@@ -49,34 +47,41 @@ public class Absolutebank {
         List<BankBranch> listFilials = branchService.getBranchesByBankId(bank.getId());
 
         int i = 0;
+        String cityName = "";
+        String getFilialName = "";
         if (!listFilials.isEmpty()) {
             i = listFilials.get(0).getId();
         }
         for (City city : cities) {
             for (TypeCurrency typeCurrency : typeCurrencies) {
                 for (SelectCurrency selectCurrency : selectCurrencies) {
-                    System.out.println("nachalo " + LocalTime.now().toString());
-                    Map<String, String> filialsAndValues = ParserAbsolutebank
-                            .getFilialAndValue(city.getName(), typeCurrency.getName(), selectCurrency.getSelect(), url);
-                    String value = ParserAbsolutebank.getBestValue(filialsAndValues, selectCurrency.getSelect());
-                    System.out.println("seredina " + LocalTime.now().toString());
+                    String value;
+                    if (!cityName.equalsIgnoreCase(city.getName())) {
+                        cityName = city.getName();
+                        getFilialName = ParserAbsolutebank.getFilialName(city.getName(), url);
+                    }
+                    if (getFilialName.isEmpty()) {
+                        value = "Нет информации";
+                    } else {
+                        value = ParserAbsolutebank.getValue(typeCurrency.getName(),
+                                selectCurrency.getSelect(), getFilialName, url);
+                    }
                     if (!listFilials.isEmpty()) {
                         BankBranch branch = valueAndBranch.getEditBranch(branchService.getFilialById(i),
-                                ParserAbsolutebank.getBranch(city, bank, filialsAndValues, value, url));
+                                ParserAbsolutebank.getBranch(city, bank, getFilialName));
                         branchService.edit(branch);
 
                         ValueCurrency valueCurrency = valueAndBranch.getEditValueCurrency(valueService.getById(i),
                                 valueAndBranch.getValueCurrency(branch, selectCurrency, typeCurrency, value));
                         valueService.edit(valueCurrency);
                     } else {
-                        BankBranch branch = ParserAbsolutebank.getBranch(city, bank, filialsAndValues, value, url);
+                        BankBranch branch = ParserAbsolutebank.getBranch(city, bank, getFilialName);
                         branchService.add(branch);
 
                         ValueCurrency valueCurrency = valueAndBranch
                                 .getValueCurrency(branch, selectCurrency, typeCurrency, value);
                         valueService.add(valueCurrency);
                     }
-                    System.out.println("konec " + LocalTime.now().toString());
                     i++;
                 }
             }

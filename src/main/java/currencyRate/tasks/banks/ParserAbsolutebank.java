@@ -3,7 +3,6 @@ package currencyRate.tasks.banks;
 import currencyRate.entity.Bank;
 import currencyRate.entity.BankBranch;
 import currencyRate.entity.City;
-import currencyRate.tasks.parser.Parser;
 import currencyRate.tasks.parser.ParserXml;
 
 import javax.xml.namespace.QName;
@@ -12,10 +11,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,14 +27,9 @@ public final class ParserAbsolutebank {
         return foundCityName;
     }
 
-//    public static String getFilialName(String )
-
-    public static Map<String, String> getFilialAndValue(String cityName, String typeMoney,
-                                                        String currencySelect, String url) {
-        Map<String, String> filialAndValue = new HashMap<>();
+    public static String getFilialName(String cityName, String url) {
+        String filialName = "";
         XMLEventReader reader = ParserXml.getReader(url);
-        String getFilial = "";
-        boolean foundTypeMoney = false;
         try {
             while (reader.hasNext()) {
                 XMLEvent event = reader.nextEvent();
@@ -50,22 +40,40 @@ public final class ParserAbsolutebank {
                         if (foundCity(cityName, attribute.getValue())) {
                             event = reader.nextEvent();
                             if (event.isStartElement()) {
-                                startElement = event.asStartElement();
-                                getFilial = attribute.getValue();
+                                filialName = attribute.getValue();
+                                break;
                             }
                         }
                         if (cityName.equalsIgnoreCase("минск")
-                                && !foundCity(cityName, attribute.getValue())) {
+                                && foundCity("Головное отделение", attribute.getValue())) {
                             event = reader.nextEvent();
                             if (event.isStartElement()) {
-                                startElement = event.asStartElement();
-                                getFilial = attribute.getValue();
+                                filialName = attribute.getValue();
+                                break;
                             }
                         }
                     }
+                }
+            }
+        } catch (XMLStreamException e) {
+            e.printStackTrace();
+        }
+        return filialName;
+    }
+
+    public static String getValue(String typeMoney, String currencySelect, String filialName, String url) {
+        String value = "";
+        XMLEventReader reader = ParserXml.getReader(url);
+        boolean getFilial = !filialName.isEmpty();
+        boolean foundTypeMoney = false;
+        try {
+            while (reader.hasNext()) {
+                XMLEvent event = reader.nextEvent();
+                if (event.isStartElement()) {
+                    StartElement startElement = event.asStartElement();
                     if (startElement.getName().getLocalPart().equalsIgnoreCase("rate")) {
                         Attribute attribute = startElement.getAttributeByName(new QName("currency"));
-                        if ((!getFilial.isEmpty()) && attribute.getValue().equalsIgnoreCase(typeMoney)) {
+                        if (attribute.getValue().equalsIgnoreCase(typeMoney) && getFilial) {
                             foundTypeMoney = true;
                         }
                     }
@@ -73,7 +81,8 @@ public final class ParserAbsolutebank {
                         if (startElement.getName().getLocalPart().equalsIgnoreCase("sell")) {
                             event = reader.nextEvent();
                             if (event.isCharacters()) {
-                                filialAndValue.put(getFilial, event.asCharacters().getData());
+                                value = event.asCharacters().getData();
+                                break;
                             }
                         }
                     }
@@ -81,77 +90,31 @@ public final class ParserAbsolutebank {
                         if (startElement.getName().getLocalPart().equalsIgnoreCase("buy")) {
                             event = reader.nextEvent();
                             if (event.isCharacters()) {
-                                filialAndValue.put(getFilial, event.asCharacters().getData());
+                                value = event.asCharacters().getData();
+                                break;
                             }
                         }
                     }
                 }
             }
-
         } catch (XMLStreamException e) {
             e.printStackTrace();
         }
-        return filialAndValue;
-    }
-
-    public static String getBestValue(Map<String, String> filialsValues, String currencySelect) {
-        String value;
-        List<String> values = new ArrayList<>(filialsValues.values());
-        value = Parser.getBestValue(values, currencySelect);
         return value;
     }
 
-    public static BankBranch getBranch(City city, Bank bank, Map<String, String> filialsValues,
-                                       String bestValue, String url) {
+    public static BankBranch getBranch(City city, Bank bank, String filialName) {
         BankBranch branch = new BankBranch();
-        String filialName = ParserAbsolutebank.getFilialName(bestValue, filialsValues);
         branch.setCity(city);
         branch.setBank(bank);
         if (filialName.isEmpty()) {
-            branch.setName("Нет информации от банка");
+            branch.setName("Нет информации");
             branch.setId(0);
         } else {
             branch.setName(filialName);
-            branch.setFilialId(Integer.parseInt(ParserAbsolutebank.getFilialId(filialName, url)));
+            branch.setFilialId(0);
         }
-        branch.setAddress("Нет информации от банка");
+        branch.setAddress("Нет информации");
         return branch;
-    }
-
-    private static String getFilialId(String filialName, String url) {
-        String filialId = "";
-        XMLEventReader reader = ParserXml.getReader(url);
-        try {
-            while (reader.hasNext()) {
-                XMLEvent event = reader.nextEvent();
-                if (event.isStartElement()) {
-                    StartElement startElement = event.asStartElement();
-                    if (startElement.getName().getLocalPart().equalsIgnoreCase("branch")) {
-                        Attribute attribute = startElement.getAttributeByName(new QName("id"));
-                        filialId = attribute.getValue();
-                    }
-                    if (startElement.getName().getLocalPart().equalsIgnoreCase("branch")) {
-                        Attribute attribute = startElement.getAttributeByName(new QName("name"));
-                        if (attribute.getValue().equalsIgnoreCase(filialName)) {
-                            break;
-                        }
-                    }
-                }
-            }
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-        }
-        return filialId;
-    }
-
-    private static String getFilialName(String bestValue, Map<String, String> banksValue) {
-        String filialName = "";
-        for (Map.Entry<String, String> entry : banksValue.entrySet()) {
-            if (entry.getValue().contains(bestValue)) {
-                filialName = entry.getKey();
-                break;
-            }
-        }
-        return filialName;
     }
 }
