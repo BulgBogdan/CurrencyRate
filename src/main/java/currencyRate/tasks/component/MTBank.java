@@ -39,7 +39,7 @@ public class MTBank {
     }
 
     public void createAndUpdateValues() {
-        Bank bank = bankService.getByName("Белгазпромбанк");
+        Bank bank = bankService.getByName("МТБанк");
 
         List<City> cities = cityService.getAll();
         List<SelectCurrency> selectCurrencies = selectService.getAll();

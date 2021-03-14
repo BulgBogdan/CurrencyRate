@@ -71,6 +71,8 @@ values ('Белгазпромбанк');
 insert into currency_rate.bank (name)
 values ('Абсолютбанк');
 insert into currency_rate.bank (name)
+values ('МТБанк');
+insert into currency_rate.bank (name)
 values ('ВТБ Банк');
 insert into currency_rate.bank (name)
 values ('БСБ Банк');
