@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @Component
@@ -53,14 +52,12 @@ public class BSB {
         for (City city : cities) {
             for (TypeCurrency typeCurrency : typeCurrencies) {
                 for (SelectCurrency selectCurrency : selectCurrencies) {
-                    System.out.println("--------------------------nachalo " + LocalTime.now().toString());
                     String value;
                     if (city.getName().equalsIgnoreCase("минск")) {
                         value = ParserBSB.getValue(typeCurrency.getName(), selectCurrency.getSelect(), url);
                     } else {
                         value = "Нет информации";
                     }
-                    System.out.println("seredina " + LocalTime.now().toString());
                     if (!listFilials.isEmpty()) {
                         BankBranch branch = valueAndBranch.getEditBranch(branchService.getFilialById(i),
                                 ParserBSB.getBranch(city, bank));
@@ -77,7 +74,6 @@ public class BSB {
                                 .getValueCurrency(branch, selectCurrency, typeCurrency, value);
                         valueService.add(valueCurrency);
                     }
-                    System.out.println("-----------------------------------------konec " + LocalTime.now().toString());
                     i++;
                 }
             }
