@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -31,69 +34,147 @@
 </header>
 <main class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+
         <h5 class="display-4">Курсы валют</h5>
+
         <p class="lead">Таблица</p>
-    </div>
 
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        <div class="col">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h4 class="my-0 fw-normal">Графики изменения</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Неделя, Месяц, Год</li>
-                        <li>Все курсы валют за последние 5 лет</li>
-                    </ul>
-                    <button typeCurrency="button" class="w-100 btn btn-lg btn-outline-primary">Перейти</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h4 class="my-0 fw-normal">Онлайн калькулятор</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Конвертация валюты</li>
-                        <li>Быстрый расчет</li>
-                    </ul>
-                    <button typeCurrency="button" class="w-100 btn btn-lg btn-primary">Перейти</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h4 class="my-0 fw-normal">Выбор по дате</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Выбор даты</li>
-                        <li>Выбор валюты</li>
-                    </ul>
-                    <button typeCurrency="button" class="w-100 btn btn-lg btn-primary">Просмотреть</button>
-                </div>
-            </div>
-        </div>
-    </div>
+        <div class="row border border-default">
 
-    <footer class="pt-4 my-md-5 pt-md-5 border-top">
-        <div class="row">
-            <div class="col-12 col-md">
-                <small class="d-block mb-3 text-muted">© Bogdan</small>
+            <div class="text-center col-md-12 text-white bg-primary border-top">
+                <p>Лучшие курсы</p>
             </div>
-            <div class="col-6 col-md">
-                <h5>Информация</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="link-secondary" href="#">О сайте</a></li>
-                    <li><a class="link-secondary" href="#">Помощь</a></li>
-                </ul>
+
+
+            <div class="bg-secondary text-white  mb-3 col-3 text-center d-none d-sm-block">
+                <p>Валюта</p>
+            </div>
+
+            <div class="bg-secondary text-white mb-3 col-3 text-center d-none d-sm-block">
+                <p>Продажа</p>
+            </div>
+
+            <div class="bg-secondary text-white mb-3 col-3 text-center d-none d-sm-block">
+                <p>Покупка</p>
+            </div>
+
+            <div class="bg-secondary text-white mb-3 col-3 text-center d-none d-sm-block">
+                <p>НБРБ</p>
+            </div>
+
+
+            <div class="py-2 col-3 text-center d-none d-sm-block small">
+                <p>USD</p>
+            </div>
+            <div class="py-2 odd col-3 text-center">
+                <del>value</del>
+            </div>
+            <div class="py-2even col-3 text-center">
+                <del>value</del>
+            </div>
+            <div class="py-2 odd col-3 text-center">
+                <del>value</del>
+            </div>
+
+
+            <div class="py-2 col-3 text-center d-none d-sm-block gateway">
+                <p>EUR</p>
+            </div>
+
+            <div class="py-2 odd col-3 text-center">
+                <p class="mark text-danger lead font-weight-bold">value</p>
+            </div>
+            <div class="py-2 even col-3 text-center">
+                <p class="mark text-danger lead font-weight-bold">value</p>
+            </div>
+            <div class="py-2 odd col-3 text-center">
+                <p class="mark text-danger lead font-weight-bold">value</p>
+            </div>
+
+
+            <div class="py-2 col-3 text-center d-none d-sm-block gateway">
+                <p>RUB</p>
+            </div>
+
+            <div class="py-2 odd col-3 text-center">
+                <p class="mark text-danger lead font-weight-bold">value</p>
+            </div>
+            <div class="py-2 even col-3 text-center">
+                <p class="mark text-danger lead font-weight-bold">value</p>
+            </div>
+            <div class="py-2 odd col-3 text-center">
+                <p class="mark text-danger lead font-weight-bold">value</p>
+            </div>
+
+
+            <div class="text-center border py-4 col-md text-secondary">
+                <p>[disclaimer-short]</p>
+            </div>
+
+        </div>
+        <div>
+            <p></p>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Графики изменения</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Неделя, Месяц, Год</li>
+                            <li>Все курсы валют за последние 5 лет</li>
+                        </ul>
+                        <button typeCurrency="button" class="w-100 btn btn-lg btn-outline-primary">Перейти</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Онлайн калькулятор</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Конвертация валюты</li>
+                            <li>Быстрый расчет</li>
+                        </ul>
+                        <button typeCurrency="button" class="w-100 btn btn-lg btn-primary">Перейти</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Выбор по дате</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Выбор даты</li>
+                            <li>Выбор валюты</li>
+                        </ul>
+                        <button typeCurrency="button" class="w-100 btn btn-lg btn-primary">Просмотреть</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row">
+                <div class="col-12 col-md">
+                    <small class="d-block mb-3 text-muted">© Bogdan</small>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>Информация</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="link-secondary" href="#">О сайте</a></li>
+                        <li><a class="link-secondary" href="#">Помощь</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
 </main>
 </body>
 </html>
