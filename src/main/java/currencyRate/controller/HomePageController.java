@@ -16,10 +16,4 @@ public class HomePageController {
         modelAndView.setViewName("home");
         return modelAndView;
     }
-
-    @GetMapping("/test")
-    public ModelAndView testPage() {
-        modelAndView.setViewName("test");
-        return modelAndView;
-    }
 }
