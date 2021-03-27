@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class CalculateController {
+public class BanksController {
 
     private ModelAndView modelAndView = new ModelAndView();
 
-    @GetMapping("/calculate")
-    public ModelAndView calculatePage() {
-        modelAndView.setViewName("calculate");
+    @GetMapping("/banks")
+    public ModelAndView banksPage() {
+        modelAndView.setViewName("banks");
         return modelAndView;
     }
 }
