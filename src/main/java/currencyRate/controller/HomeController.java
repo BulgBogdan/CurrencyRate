@@ -1,8 +1,10 @@
 package currencyRate.controller;
 
+import currencyRate.entity.City;
 import currencyRate.entity.SelectCurrency;
 import currencyRate.entity.TypeCurrency;
 import currencyRate.entity.ValueCurrency;
+import currencyRate.service.CityService;
 import currencyRate.service.SelectService;
 import currencyRate.service.TypeService;
 import currencyRate.service.ValueService;
@@ -19,6 +21,8 @@ public class HomeController {
 
     private ModelAndView modelAndView = new ModelAndView();
 
+    private CityService cityService;
+
     private ValueService valueService;
 
     private TypeService typeService;
@@ -26,31 +30,35 @@ public class HomeController {
     private SelectService selectService;
 
     @Autowired
-    public HomeController(ValueService valueService, TypeService typeService, SelectService selectService) {
+    public HomeController(ValueService valueService, TypeService typeService,
+                          SelectService selectService, CityService cityService) {
         this.valueService = valueService;
         this.typeService = typeService;
         this.selectService = selectService;
+        this.cityService = cityService;
     }
 
     @GetMapping("/")
     public ModelAndView homePage() {
-        double value = getBestValues(typeService.getById(1), selectService.getById(1));
+        double value = getBestValues(typeService.getById(1), selectService.getById(1), cityService.getById(5));
         modelAndView.setViewName("home");
         return modelAndView;
     }
 
-    private double getBestValues(TypeCurrency typeCurrency, SelectCurrency selectCurrency) {
+    private double getBestValues(TypeCurrency typeCurrency, SelectCurrency selectCurrency, City city) {
         List<ValueCurrency> values = valueService.getAll();
         double bestValue = Double.parseDouble(values.get(1).getValue());
         for (ValueCurrency value : values) {
-            if (value.getSelect().getSelect().equals(selectCurrency.getSelect()) && value.getType().equals(typeCurrency)) {
-                if (selectCurrency.getSelect().equalsIgnoreCase("продажа")) {
-                    if (bestValue <= Double.parseDouble(value.getValue())) {
-                        bestValue = Double.parseDouble(value.getValue());
-                    }
-                } else {
-                    if (bestValue >= Double.parseDouble(value.getValue())) {
-                        bestValue = Double.parseDouble(value.getValue());
+            if (city.getName().equals(value.getBranch().getCity().getName())) {
+                if (value.getSelect().getSelect().equals(selectCurrency.getSelect()) && value.getType().equals(typeCurrency)) {
+                    if (selectCurrency.getSelect().equalsIgnoreCase("продажа")) {
+                        if (bestValue <= Double.parseDouble(value.getValue())) {
+                            bestValue = Double.parseDouble(value.getValue());
+                        }
+                    } else {
+                        if (bestValue >= Double.parseDouble(value.getValue())) {
+                            bestValue = Double.parseDouble(value.getValue());
+                        }
                     }
                 }
             }
