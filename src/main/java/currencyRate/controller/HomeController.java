@@ -40,24 +40,25 @@ public class HomeController {
 
     @GetMapping("/")
     public ModelAndView homePage() {
-        double value = getBestValues(typeService.getById(1), selectService.getById(1), cityService.getById(5));
+        String value = getBestValues(typeService.getById(1), selectService.getById(1), cityService.getById(5));
         modelAndView.setViewName("home");
         return modelAndView;
     }
 
-    private double getBestValues(TypeCurrency typeCurrency, SelectCurrency selectCurrency, City city) {
+    private String getBestValues(TypeCurrency typeCurrency, SelectCurrency selectCurrency, City city) {
         List<ValueCurrency> values = valueService.getAll();
-        double bestValue = Double.parseDouble(values.get(1).getValue());
+        String bestValue = "";
+        double valueBest = Double.parseDouble(values.get(1).getValue());
         for (ValueCurrency value : values) {
             if (city.getName().equals(value.getBranch().getCity().getName())) {
                 if (value.getSelect().getSelect().equals(selectCurrency.getSelect()) && value.getType().equals(typeCurrency)) {
                     if (selectCurrency.getSelect().equalsIgnoreCase("продажа")) {
-                        if (bestValue <= Double.parseDouble(value.getValue())) {
-                            bestValue = Double.parseDouble(value.getValue());
+                        if (valueBest <= Double.parseDouble(value.getValue())) {
+                            bestValue = value.getValue();
                         }
                     } else {
-                        if (bestValue >= Double.parseDouble(value.getValue())) {
-                            bestValue = Double.parseDouble(value.getValue());
+                        if (valueBest >= Double.parseDouble(value.getValue())) {
+                            bestValue = value.getValue();
                         }
                     }
                 }
@@ -65,4 +66,5 @@ public class HomeController {
         }
         return bestValue;
     }
+
 }
