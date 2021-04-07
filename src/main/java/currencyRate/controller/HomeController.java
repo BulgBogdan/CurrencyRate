@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,31 +41,45 @@ public class HomeController {
 
     @GetMapping("/")
     public ModelAndView homePage() {
-        String value = getBestValues(typeService.getById(1), selectService.getById(1), cityService.getById(5));
+        String value = getBestValue(getValuesWithTypeAndSelect(typeService.getById(1), selectService.getById(1), cityService.getById(5)), selectService.getById(1));
         modelAndView.setViewName("home");
         return modelAndView;
     }
 
-    private String getBestValues(TypeCurrency typeCurrency, SelectCurrency selectCurrency, City city) {
+    private List<ValueCurrency> getValuesWithTypeAndSelect(TypeCurrency type, SelectCurrency select, City city) {
         List<ValueCurrency> values = valueService.getAll();
-        String bestValue = "";
-        double valueBest = Double.parseDouble(values.get(1).getValue());
+        List<ValueCurrency> valuesWithTypeAndSelect = new ArrayList<>();
         for (ValueCurrency value : values) {
-            if (city.getName().equals(value.getBranch().getCity().getName())) {
-                if (value.getSelect().getSelect().equals(selectCurrency.getSelect()) && value.getType().equals(typeCurrency)) {
-                    if (selectCurrency.getSelect().equalsIgnoreCase("продажа")) {
-                        if (valueBest <= Double.parseDouble(value.getValue())) {
-                            bestValue = value.getValue();
-                        }
-                    } else {
-                        if (valueBest >= Double.parseDouble(value.getValue())) {
-                            bestValue = value.getValue();
-                        }
-                    }
+            boolean cityEquals = city.equals(value.getBranch().getCity());
+            boolean selectEquals = value.getSelect().equals(select);
+            boolean typeEquals = value.getType().equals(type);
+            if (cityEquals && selectEquals && typeEquals) {
+                valuesWithTypeAndSelect.add(value);
+            }
+        }
+        return valuesWithTypeAndSelect;
+    }
+
+    private String getBestValue(List<ValueCurrency> values, SelectCurrency select) {
+        double getValue = Double.parseDouble(values.get(0).getValue());
+
+        boolean sale = select.getSelect().equalsIgnoreCase("продажа");
+        boolean buy = select.getSelect().equalsIgnoreCase("покупка");
+
+        for (ValueCurrency value : values) {
+            if (value.getValue().equals("")) {
+                continue;
+            } else {
+                if (sale && (getValue >= Double.parseDouble(value.getValue()))) {
+                    getValue = Double.parseDouble(value.getValue());
+                }
+
+                if (buy && (getValue <= Double.parseDouble(value.getValue()))) {
+                    getValue = Double.parseDouble(value.getValue());
                 }
             }
         }
-        return bestValue;
+        return String.valueOf(getValue);
     }
 
 }
