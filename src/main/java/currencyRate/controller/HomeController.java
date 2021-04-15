@@ -1,19 +1,17 @@
 package currencyRate.controller;
 
-import currencyRate.entity.City;
-import currencyRate.entity.SelectCurrency;
+import currencyRate.controller.logic.HomeMethods;
 import currencyRate.entity.TypeCurrency;
 import currencyRate.entity.ValueCurrency;
 import currencyRate.service.CityService;
-import currencyRate.service.SelectService;
 import currencyRate.service.TypeService;
 import currencyRate.service.ValueService;
+import currencyRate.tasks.banks.NationalBank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,58 +26,43 @@ public class HomeController {
 
     private TypeService typeService;
 
-    private SelectService selectService;
+    private NationalBank nationalBank;
 
     @Autowired
     public HomeController(ValueService valueService, TypeService typeService,
-                          SelectService selectService, CityService cityService) {
+                          CityService cityService, NationalBank nationalBank) {
         this.valueService = valueService;
         this.typeService = typeService;
-        this.selectService = selectService;
         this.cityService = cityService;
+        this.nationalBank = nationalBank;
     }
 
     @GetMapping("/")
     public ModelAndView homePage() {
-        String value = getBestValue(getValuesWithTypeAndSelect(typeService.getById(1), selectService.getById(1), cityService.getById(5)), selectService.getById(1));
+        modelAndView.addObject("saleUSD", valueByType("usd", "продажа"));
+        modelAndView.addObject("saleEUR", valueByType("eur", "продажа"));
+        modelAndView.addObject("saleRUB", valueByType("rub", "продажа"));
+        modelAndView.addObject("buyUSD", valueByType("usd", "покупка"));
+        modelAndView.addObject("buyEUR", valueByType("eur", "покупка"));
+        modelAndView.addObject("buyRUB", valueByType("rub", "покупка"));
+        modelAndView.addObject("nbrbUSD", nationalBank.getValueUSD());
+        modelAndView.addObject("nbrbEUR", nationalBank.getValueEUR());
+        modelAndView.addObject("nbrbRUB", nationalBank.getValueRUB());
         modelAndView.setViewName("home");
         return modelAndView;
     }
 
-    private List<ValueCurrency> getValuesWithTypeAndSelect(TypeCurrency type, SelectCurrency select, City city) {
-        List<ValueCurrency> values = valueService.getAll();
-        List<ValueCurrency> valuesWithTypeAndSelect = new ArrayList<>();
-        for (ValueCurrency value : values) {
-            boolean cityEquals = city.equals(value.getBranch().getCity());
-            boolean selectEquals = value.getSelect().equals(select);
-            boolean typeEquals = value.getType().equals(type);
-            if (cityEquals && selectEquals && typeEquals) {
-                valuesWithTypeAndSelect.add(value);
+    private String valueByType(String typeMoney, String selectMoney) {
+        String value = "";
+        List<TypeCurrency> types = typeService.getAll();
+        for (TypeCurrency type : types) {
+            List<ValueCurrency> values = HomeMethods
+                    .getValuesWithTypeAndSelect(type, selectMoney, cityService.getById(5), valueService.getAll());
+            if (type.getName().equalsIgnoreCase(typeMoney)) {
+                value = HomeMethods.getBestValue(values, selectMoney);
+                break;
             }
         }
-        return valuesWithTypeAndSelect;
+        return value;
     }
-
-    private String getBestValue(List<ValueCurrency> values, SelectCurrency select) {
-        double getValue = Double.parseDouble(values.get(0).getValue());
-
-        boolean sale = select.getSelect().equalsIgnoreCase("продажа");
-        boolean buy = select.getSelect().equalsIgnoreCase("покупка");
-
-        for (ValueCurrency value : values) {
-            if (value.getValue().equals("")) {
-                continue;
-            } else {
-                if (sale && (getValue >= Double.parseDouble(value.getValue()))) {
-                    getValue = Double.parseDouble(value.getValue());
-                }
-
-                if (buy && (getValue <= Double.parseDouble(value.getValue()))) {
-                    getValue = Double.parseDouble(value.getValue());
-                }
-            }
-        }
-        return String.valueOf(getValue);
-    }
-
 }
