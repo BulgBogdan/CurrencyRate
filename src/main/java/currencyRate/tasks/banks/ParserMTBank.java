@@ -36,7 +36,7 @@ public final class ParserMTBank {
                             foundTypeMoney = true;
                         }
                     }
-                    if (foundTypeMoney && currencySelect.equalsIgnoreCase("продажа")) {
+                    if (foundTypeMoney && currencySelect.equalsIgnoreCase("покупка")) {
                         if (startElement.getName().getLocalPart().equalsIgnoreCase("purchase")) {
                             event = reader.nextEvent();
                             if (event.isCharacters()) {
@@ -45,7 +45,7 @@ public final class ParserMTBank {
                             }
                         }
                     }
-                    if (foundTypeMoney && currencySelect.equalsIgnoreCase("покупка")) {
+                    if (foundTypeMoney && currencySelect.equalsIgnoreCase("продажа")) {
                         if (startElement.getName().getLocalPart().equalsIgnoreCase("sale")) {
                             event = reader.nextEvent();
                             if (event.isCharacters()) {
