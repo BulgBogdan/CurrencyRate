@@ -13,5 +13,5 @@ public interface TypeRepository extends JpaRepository<TypeCurrency, Integer> {
     TypeCurrency getById(@Param("id") int id);
 
     @Query("select t from TypeCurrency t where t.name = :nameType")
-    TypeCurrency getByName(@Param("name") String nameType);
+    TypeCurrency getByName(@Param("nameType") String nameType);
 }
