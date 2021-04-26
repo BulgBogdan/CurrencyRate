@@ -24,7 +24,7 @@ public final class ParserMTBank {
                     StartElement startElement = event.asStartElement();
                     if (startElement.getName().getLocalPart().equalsIgnoreCase("code")) {
                         event = reader.nextEvent();
-                        if (event.asCharacters().getData().equalsIgnoreCase("BYN")) {
+                        if (event.asCharacters().getData().equalsIgnoreCase(typeMoney)) {
                             foundRow = true;
                         } else {
                             foundRow = false;
@@ -32,7 +32,7 @@ public final class ParserMTBank {
                     }
                     if (startElement.getName().getLocalPart().equalsIgnoreCase("codeTo")) {
                         event = reader.nextEvent();
-                        if (foundRow && event.asCharacters().getData().equalsIgnoreCase(typeMoney)) {
+                        if (foundRow && event.asCharacters().getData().equalsIgnoreCase("BYN")) {
                             foundTypeMoney = true;
                         }
                     }

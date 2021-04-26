@@ -45,7 +45,7 @@ public final class ParserAbsolutebank {
                             }
                         }
                         if (cityName.equalsIgnoreCase("минск")
-                                && foundCity("Головное отделение", attribute.getValue())) {
+                                && foundCity("Обменный пункт", attribute.getValue())) {
                             event = reader.nextEvent();
                             if (event.isStartElement()) {
                                 filialName = attribute.getValue();

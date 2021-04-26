@@ -57,7 +57,7 @@ public final class ParserVTB {
         BankBranch branch = new BankBranch();
         branch.setCity(city);
         branch.setBank(bank);
-        branch.setName("Нет информации");
+        branch.setName("Филиал города " + city.getName());
         branch.setId(0);
         branch.setAddress("Нет информации");
         return branch;

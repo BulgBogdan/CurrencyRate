@@ -44,7 +44,8 @@ public final class ParserBSB {
                             foundTypeMoney = true;
                         }
                     }
-                    if (foundTypeMoney && startElement.getName().getLocalPart().equalsIgnoreCase("sell_good_name")) {
+                    if (foundTypeMoney
+                            && startElement.getName().getLocalPart().equalsIgnoreCase("sell_good_name")) {
                         event = reader.nextEvent();
                         if (event.isCharacters() && belarusMoney.equalsIgnoreCase(event.asCharacters().getData())) {
                             break;
@@ -63,9 +64,14 @@ public final class ParserBSB {
         BankBranch branch = new BankBranch();
         branch.setCity(city);
         branch.setBank(bank);
-        branch.setName("Нет информации");
         branch.setId(0);
-        branch.setAddress("Нет информации");
+        if (city.getName().equalsIgnoreCase("минск")) {
+            branch.setName("Головной офис");
+            branch.setAddress("Победителей пр., 23/4");
+        } else {
+            branch.setName("Нет информации");
+            branch.setAddress("Нет информации");
+        }
         return branch;
     }
 

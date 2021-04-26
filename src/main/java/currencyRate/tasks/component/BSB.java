@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -39,6 +42,7 @@ public class BSB {
 
     public void createAndUpdateValues() {
         Bank bank = bankService.getByName("БСБ Банк");
+        String urlToday = url + new SimpleDateFormat("dd.MM.yyyy").format(Date.valueOf(LocalDate.now()));
 
         List<City> cities = cityService.getAll();
         List<SelectCurrency> selectCurrencies = selectService.getAll();
@@ -54,7 +58,7 @@ public class BSB {
                 for (SelectCurrency selectCurrency : selectCurrencies) {
                     String value;
                     if (city.getName().equalsIgnoreCase("минск")) {
-                        value = ParserBSB.getValue(typeCurrency.getName(), selectCurrency.getSelect(), url);
+                        value = ParserBSB.getValue(typeCurrency.getName(), selectCurrency.getSelect(), urlToday);
                     } else {
                         value = "Нет информации";
                     }
