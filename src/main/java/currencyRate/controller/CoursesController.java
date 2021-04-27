@@ -2,7 +2,10 @@ package currencyRate.controller;
 
 import currencyRate.controller.utils.CoursesUtil;
 import currencyRate.entity.*;
-import currencyRate.service.*;
+import currencyRate.service.BranchService;
+import currencyRate.service.CityService;
+import currencyRate.service.TypeService;
+import currencyRate.service.ValueService;
 import currencyRate.tasks.banks.NationalBank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,23 +29,16 @@ public class CoursesController {
 
     private TypeService typeService;
 
-    private BankService bankService;
-
     private BranchService branchService;
-
-    private SelectService selectService;
 
     private NationalBank nationalBank;
 
     @Autowired
     public CoursesController(CityService cityService, ValueService valueService, TypeService typeService,
-                             BankService bankService, SelectService selectService, NationalBank nationalBank,
-                             BranchService branchService) {
+                             NationalBank nationalBank, BranchService branchService) {
         this.cityService = cityService;
         this.valueService = valueService;
         this.typeService = typeService;
-        this.bankService = bankService;
-        this.selectService = selectService;
         this.nationalBank = nationalBank;
         this.branchService = branchService;
     }
