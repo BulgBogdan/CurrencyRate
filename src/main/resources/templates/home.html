@@ -16,7 +16,8 @@
 
 <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <nav class="my-2 my-md-0 me-md-3">
-        <a class="p-2 text-dark" th:href="@{/courses/__${city}__}">Банки города</a>
+        <a class="p-2 text-dark" th:href="@{/}">Главная</a>
+        <a class="p-2 text-dark" th:href="@{/courses/__${city}__}">Курсы</a>
         <a class="p-2 text-dark" th:href="@{/calculate/__${city}__}">Калькулятор</a>
         <a class="p-2 text-dark" th:href="@{/history}">Выбор по дате</a>
     </nav>
@@ -64,7 +65,7 @@
 
 
             <div class="py-2 col-3 text-center d-none d-sm-block gateway">
-                <a class="text-dark" th:href="@{/banks/__${city}__/USD}">USD</a>
+                <a class="text-dark" th:href="@{/courses/__${city}__(type=USD)}">USD</a>
             </div>
             <div class="py-2 odd col-3 text-center">
                 <p class="mark text-info lead font-weight-bold" th:text="${saleUSD}"></p>
@@ -78,7 +79,7 @@
 
 
             <div class="py-2 col-3 text-center d-none d-sm-block gateway">
-                <a class="text-dark" th:href="@{/banks/__${city}__/EUR}">EUR</a>
+                <a class="text-dark" th:href="@{/courses/__${city}__(type=EUR)}">EUR</a>
             </div>
 
             <div class="py-2 odd col-3 text-center">
@@ -93,7 +94,7 @@
 
 
             <div class="py-2 col-3 text-center d-none d-sm-block gateway">
-                <a class="text-dark" th:href="@{/banks/__${city}__/RUB}">RUB</a>
+                <a class="text-dark" th:href="@{/courses/__${city}__(type=RUB)}">RUB</a>
             </div>
 
             <div class="py-2 odd col-3 text-center">
