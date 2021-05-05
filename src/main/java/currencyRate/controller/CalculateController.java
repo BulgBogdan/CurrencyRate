@@ -12,9 +12,8 @@ import currencyRate.service.ValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -42,37 +41,27 @@ public class CalculateController {
     }
 
     @GetMapping("/calculate/{city}")
-    public ModelAndView calculatePage(@PathVariable("city") String city) {
-        String value = "";
-        String typ = "";
-        String sel = "";
+    public ModelAndView calculatePage(@PathVariable("city") String city,
+                                      @RequestParam(defaultValue = "USD") String type,
+                                      @RequestParam(defaultValue = "Продажа") String select,
+                                      @RequestParam(defaultValue = "100") String value) {
         List<City> cities = cityService.getAll();
         List<TypeCurrency> types = typeService.getAll();
         List<ValueCurrency> values = CalculatorUtil.getCityValues(valueService.getAll(), city);
         List<SelectCurrency> selects = selectService.getAll();
         List<String> sells = CalculatorUtil.getBestValues("Продажа", types, values);
         List<String> buys = CalculatorUtil.getBestValues("Покупка", types, values);
+
         modelAndView.addObject("cities", cities);
         modelAndView.addObject("selects", selects);
         modelAndView.addObject("types", types);
         modelAndView.addObject("sells", sells);
         modelAndView.addObject("buys", buys);
         modelAndView.addObject("city", city);
+        modelAndView.addObject("type", type);
+        modelAndView.addObject("select", select);
         modelAndView.addObject("value", value);
-        modelAndView.addObject("typ", typ);
-        modelAndView.addObject("sel", sel);
         modelAndView.setViewName("calculate");
-        return modelAndView;
-    }
-
-    @PostMapping("/calculate/{city}")
-    public ModelAndView calculate(@PathVariable("city") String city,
-                                  @ModelAttribute("sel") String select,
-                                  @ModelAttribute("typ") String type,
-                                  @ModelAttribute("value") String value) {
-        String sel = select;
-        String typ = type;
-        String val = value;
         return modelAndView;
     }
 }
