@@ -8,15 +8,18 @@ import java.util.List;
 
 public class CalculatorUtil {
 
-    private static String bestValue(List<ValueCurrency> values, String select, String type) {
+    public static String bestValue(List<ValueCurrency> values,
+                                   String select,
+                                   String type) {
         double getValue = 0;
 
+        int count = 0;
         boolean sale = select.equalsIgnoreCase("продажа");
         boolean buy = select.equalsIgnoreCase("покупка");
-        int count = 0;
         for (ValueCurrency value : values) {
             boolean typeConfirm = value.getType().getName().equalsIgnoreCase(type);
-            if (typeConfirm) {
+            boolean selectConfirm = value.getSelect().getSelect().equalsIgnoreCase(select);
+            if (typeConfirm && selectConfirm) {
                 double doubleValue = Double.parseDouble(value.getValue());
                 count++;
                 if (count == 1) {
@@ -36,7 +39,8 @@ public class CalculatorUtil {
         return String.valueOf(getValue);
     }
 
-    public static List<ValueCurrency> getCityValues(List<ValueCurrency> values, String city) {
+    public static List<ValueCurrency> getCityValues(List<ValueCurrency> values,
+                                                    String city) {
         List<ValueCurrency> listValues = new ArrayList<>();
         for (ValueCurrency value : values) {
             boolean cityConfirm = value.getBranch().getCity().getName().equalsIgnoreCase(city);
@@ -49,7 +53,9 @@ public class CalculatorUtil {
         return listValues;
     }
 
-    public static List<String> getBestValues(String select, List<TypeCurrency> typesCurrency, List<ValueCurrency> values) {
+    public static List<String> getBestValues(String select,
+                                             List<TypeCurrency> typesCurrency,
+                                             List<ValueCurrency> values) {
         List<String> listValues = new ArrayList<>();
         String value = "";
         for (TypeCurrency type : typesCurrency) {
@@ -59,4 +65,15 @@ public class CalculatorUtil {
         return listValues;
     }
 
+    public static String calculateWithBestValue(List<ValueCurrency> values,
+                                                String inputValue,
+                                                String select,
+                                                String type) {
+        String cityBestValue = CalculatorUtil.bestValue(values, select, type);
+        double bestValue = Double.parseDouble(cityBestValue);
+        double calculateResult = bestValue * Double.parseDouble(inputValue);
+        calculateResult = Math.round(calculateResult * 100);
+        calculateResult = calculateResult / 100;
+        return String.valueOf(calculateResult);
+    }
 }

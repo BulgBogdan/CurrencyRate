@@ -51,7 +51,11 @@ public class CalculateController {
         List<SelectCurrency> selects = selectService.getAll();
         List<String> sells = CalculatorUtil.getBestValues("Продажа", types, values);
         List<String> buys = CalculatorUtil.getBestValues("Покупка", types, values);
+        String result = CalculatorUtil.calculateWithBestValue(values, value, select, type);
+        String bestValue = CalculatorUtil.bestValue(values, select, type);
 
+        modelAndView.addObject("result", result);
+        modelAndView.addObject("bestValue", bestValue);
         modelAndView.addObject("cities", cities);
         modelAndView.addObject("selects", selects);
         modelAndView.addObject("types", types);
