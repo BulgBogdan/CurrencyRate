@@ -7,11 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @Component
 @PropertySource("classpath:banks.properties")
@@ -30,15 +27,10 @@ public class NationalBank {
         return Parser.getInputText(url);
     }
 
-    private String today() {
+    public String today() {
         LocalDate today = LocalDate.now();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return dateFormat.format(today);
-    }
-
-    private String selectDate(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return dateFormat.format(date);
     }
 
     private JSONObject getJson(String urlWithType, String date) {
@@ -46,16 +38,16 @@ public class NationalBank {
         return (JSONObject) JSONValue.parse(jsonText(url));
     }
 
-    public String getValueUSD() {
-        return getValue(getJson(urlUSD, today()));
+    public String getValueUSD(String date) {
+        return getValue(getJson(urlUSD, date));
     }
 
-    public String getValueEUR() {
-        return getValue(getJson(urlEUR, today()));
+    public String getValueEUR(String date) {
+        return getValue(getJson(urlEUR, date));
     }
 
-    public String getValueRUB() {
-        return getValue(getJson(urlRUB, today()));
+    public String getValueRUB(String date) {
+        return getValue(getJson(urlRUB, date));
     }
 
     private String getValue(JSONObject jsonObject) {
