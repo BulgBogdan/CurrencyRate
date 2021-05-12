@@ -50,9 +50,9 @@ public class HomeController {
         modelAndView.addObject("buyUSD", valueByType("usd", "покупка", city));
         modelAndView.addObject("buyEUR", valueByType("eur", "покупка", city));
         modelAndView.addObject("buyRUB", valueByType("rub", "покупка", city));
-        modelAndView.addObject("nbrbUSD", nationalBank.getValueUSD());
-        modelAndView.addObject("nbrbEUR", nationalBank.getValueEUR());
-        modelAndView.addObject("nbrbRUB", nationalBank.getValueRUB());
+        modelAndView.addObject("nbrbUSD", nationalBank.getValueUSD(nationalBank.today()));
+        modelAndView.addObject("nbrbEUR", nationalBank.getValueEUR(nationalBank.today()));
+        modelAndView.addObject("nbrbRUB", nationalBank.getValueRUB(nationalBank.today()));
         modelAndView.setViewName("home");
         return modelAndView;
     }

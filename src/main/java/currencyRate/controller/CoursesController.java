@@ -77,11 +77,11 @@ public class CoursesController {
         modelAndView.addObject("valuesBuy", valuesBuy);
 
         if (type.equalsIgnoreCase("usd")) {
-            modelAndView.addObject("nbrb", nationalBank.getValueUSD());
+            modelAndView.addObject("nbrb", nationalBank.getValueUSD(nationalBank.today()));
         } else if (type.equalsIgnoreCase("eur")) {
-            modelAndView.addObject("nbrb", nationalBank.getValueEUR());
+            modelAndView.addObject("nbrb", nationalBank.getValueEUR(nationalBank.today()));
         } else if (type.equalsIgnoreCase("rub")) {
-            modelAndView.addObject("nbrb", nationalBank.getValueRUB());
+            modelAndView.addObject("nbrb", nationalBank.getValueRUB(nationalBank.today()));
         }
         modelAndView.setViewName("courses");
         return modelAndView;
