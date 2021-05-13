@@ -68,13 +68,6 @@ public class HomeController {
                 break;
             }
         }
-        if (value.length() <= 5) {
-            for (int i = value.length(); i <= 5; i++) {
-                value = value + "0";
-            }
-        } else {
-            value = value.substring(0, 6);
-        }
         return value;
     }
 }
