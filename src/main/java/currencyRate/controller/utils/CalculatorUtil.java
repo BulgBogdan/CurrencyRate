@@ -73,7 +73,11 @@ public class CalculatorUtil {
         double bestValue = Double.parseDouble(cityBestValue);
         double calculateResult = bestValue * Double.parseDouble(inputValue);
         calculateResult = Math.round(calculateResult * 100);
-        calculateResult = calculateResult / 100;
+        if (type.equalsIgnoreCase("rub")) {
+            calculateResult = calculateResult / 10000;
+        } else {
+            calculateResult = calculateResult / 100;
+        }
         return String.valueOf(calculateResult);
     }
 }
