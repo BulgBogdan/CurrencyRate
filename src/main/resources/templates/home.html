@@ -19,11 +19,11 @@
         <a class="p-2 text-dark" th:href="@{/}">Главная</a>
         <a class="p-2 text-dark" th:href="@{/courses/__${city}__}">Курсы</a>
         <a class="p-2 text-dark" th:href="@{/calculate/__${city}__}">Калькулятор</a>
-        <a class="p-2 text-dark" th:href="@{/history}">Выбор по дате</a>
+        <a class="p-2 text-dark" th:href="@{/history/__${city}__}">Выбор по дате</a>
     </nav>
 
     <form class="form-inline my-2 my-lg-0" th:action="@{/}">
-        <select class="form-control mr-sm-2" id="city" name="city">
+        <select class="form-control mr-sm-0" id="city" name="city">
             <option th:each="citySelect : ${cities}"
                     th:value="${citySelect.getName()}"
                     th:text="${citySelect.getName()}"
@@ -94,7 +94,7 @@
 
 
             <div class="py-2 col-3 text-center d-none d-sm-block gateway">
-                <a class="text-dark" th:href="@{/courses/__${city}__(type=RUB)}">RUB</a>
+                <a class="text-dark" th:href="@{/courses/__${city}__(type=RUB)}">100 RUB</a>
             </div>
 
             <div class="py-2 odd col-3 text-center">
