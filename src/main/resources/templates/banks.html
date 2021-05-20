@@ -13,7 +13,7 @@
         <a class="p-2 text-dark" th:href="@{/}">Главная</a>
         <a class="p-2 text-dark" th:href="@{/courses/__${city}__}">Курсы</a>
         <a class="p-2 text-dark" th:href="@{/calculate/__${city}__}">Калькулятор</a>
-        <a class="p-2 text-dark" th:href="@{/history}">Выбор по дате</a>
+        <a class="p-2 text-dark" th:href="@{/history/__${city}__}">Выбор по дате</a>
     </nav>
 </header>
 <main class="container">
@@ -40,7 +40,7 @@
                     <tbody>
                     <tr th:each="type, i : ${types}">
                         <td>
-                            <a th:text="${type.getName()}"></a>
+                            <a th:text="${type.getName().equalsIgnoreCase('RUB')} ? '100 RUB' : ${type.getName()}"></a>
                         </td>
                         <td th:text="${sells.get(i.index).getValue()}"></td>
                         <td th:text="${sells.get(i.index).getBranch().getName()
