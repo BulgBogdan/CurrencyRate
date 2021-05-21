@@ -9,7 +9,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
         .center {
-            width: 200px; /* Ширина элемента в пикселах */
+            width: 300px; /* Ширина элемента в пикселах */
             padding: 10px; /* Поля вокруг текста */
             margin: auto; /* Выравниваем по центру */
         }
@@ -21,11 +21,11 @@
         <a class="p-2 text-dark" th:href="@{/}">Главная</a>
         <a class="p-2 text-dark" th:href="@{/courses/__${city}__}">Курсы</a>
         <a class="p-2 text-dark" th:href="@{/calculate/__${city}__}">Калькулятор</a>
-        <a class="p-2 text-dark" th:href="@{/history}">Выбор по дате</a>
+        <a class="p-2 text-dark" th:href="@{/history/__${city}__}">Выбор по дате</a>
     </nav>
 
     <form class="form-inline my-2 my-lg-0" th:action="@{/}">
-        <select class="form-control mr-sm-2" id="city" name="city">
+        <select class="form-control mr-sm-0" id="city" name="city">
             <option th:each="citySelect : ${cities}"
                     th:value="${citySelect.getName()}"
                     th:text="${citySelect.getName()}"
@@ -38,15 +38,15 @@
 </header>
 <div class="center">
     <p>Выбранный тип валюты: </p>
-    <form class="text-center form-inline my-0 my-lg-0" th:action="@{/courses/__${city}__}">
+    <form class="form-inline my-2 my-lg-0" th:action="@{/courses/__${city}__}">
         <select class="form-control mr-sm-0" id="type" th:name="type">
             <option th:each="typeSelected : ${types}"
                     th:value="${typeSelected.getName()}"
-                    th:text="${typeSelected.getName()}"
+                    th:text="${typeSelected.getName().equalsIgnoreCase('RUB')} ? '100 RUB' : ${typeSelected.getName()}"
                     th:selected="${typeSelected.getName().equals(type)}">
             </option>
         </select>
-        <button class="btn btn-outline-success my-0 my-sm-0">Выбрать</button>
+        <button class="btn btn-outline-success">Выбрать</button>
     </form>
 </div>
 
