@@ -1,9 +1,124 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Калькулятор валют</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+<header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <nav class="my-2 my-md-0 me-md-3">
+        <a class="p-2 text-dark" th:href="@{/}">Главная</a>
+        <a class="p-2 text-dark" th:href="@{/courses/__${city}__}">Курсы</a>
+        <a class="p-2 text-dark" th:href="@{/calculate/__${city}__}">Калькулятор</a>
+        <a class="p-2 text-dark" th:href="@{/history/__${city}__}">Выбор по дате</a>
+    </nav>
+
+    <form class="form-inline my-2 my-lg-0" th:action="@{/calculate/__${city}__}">
+        <select class="form-control mr-sm-0" id="city" name="city">
+            <option th:each="citySelect : ${cities}"
+                    th:value="${citySelect.getName()}"
+                    th:text="${citySelect.getName()}"
+                    th:selected="${citySelect.getName() == city}">
+            </option>
+        </select>
+        <button class="btn btn-outline-success my-2 my-sm-0">Выбрать</button>
+    </form>
+
+
+</header>
+<div class="container">
+    <div class="text-center">
+        <h2>Калькулятор</h2>
+        <p class="lead">Выберите параметры, чтобы рассчитать необходимые значения:</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h5 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Лучшие курсы</span>
+            </h5>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Валюта</th>
+                    <th>Продажа</th>
+                    <th>Покупка</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="selType, i : ${types}">
+                    <td th:text="${selType.getName().equalsIgnoreCase('RUB')} ? '100 RUB' : ${selType.getName()}"></td>
+                    <td th:text="${sells.get(i.index)}"></td>
+                    <td th:text="${buys.get(i.index)}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-md-8 order-md-1">
+            <form th:action="@{/calculate/__${city}__}" class="needs-validation" novalidate="">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="type">Валюта</label>
+                        <select class="form-control mr-sm-2" id="type" th:name="type">
+                            <option th:each="selType : ${types}"
+                                    th:value="${selType.getName()}"
+                                    th:text="${selType.getName()}"
+                                    th:selected="${selType.getName().equalsIgnoreCase(type)}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="select">Тип приобретения</label>
+                        <select class="custom-select d-block w-100" id="select" th:name="select">
+                            <option th:each="selected : ${selects}"
+                                    th:value="${selected.getSelect()}"
+                                    th:text="${selected.getSelect()}"
+                                    th:selected="${selected.getSelect().equalsIgnoreCase(select)}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="value">Значение</label>
+                        <input th:value="${value}" class="form-control" id="value" th:name="value"
+                               placeholder="Значение">
+                    </div>
+                    <div class="col">
+                        <div class="b-form-filter-descr">
+                            <span id="title_value"><h4><a th:text="${result}"></a> BYN</h4> по лучшему курсу <strong><a
+                                    th:text="${type.equalsIgnoreCase('RUB')} ? '100 RUB' : ${type}"></a></strong> в банках </span>
+                            <strong style="color: darkgreen"><a th:text="${bestValue}"></a></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Рассчитать</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+                <small class="d-block mb-3 text-muted">© Bogdan</small>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Информация</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" th:href="@{/about}">О сайте</a></li>
+                    <li><a class="link-secondary" th:href="@{/help}">Помощь</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
 
 </body>
 </html>
