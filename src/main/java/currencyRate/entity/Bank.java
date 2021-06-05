@@ -35,4 +35,12 @@ public class Bank {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
