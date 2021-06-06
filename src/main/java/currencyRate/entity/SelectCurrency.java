@@ -35,4 +35,12 @@ public class SelectCurrency {
     public int hashCode() {
         return Objects.hash(id, select);
     }
+
+    @Override
+    public String toString() {
+        return "SelectCurrency{" +
+                "id=" + id +
+                ", select='" + select + '\'' +
+                '}';
+    }
 }

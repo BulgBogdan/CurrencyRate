@@ -35,4 +35,12 @@ public class TypeCurrency {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
+    @Override
+    public String toString() {
+        return "TypeCurrency{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

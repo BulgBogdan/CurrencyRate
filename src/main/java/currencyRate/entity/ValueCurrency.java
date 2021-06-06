@@ -43,4 +43,6 @@ public class ValueCurrency {
     public int hashCode() {
         return Objects.hash(id, value);
     }
+
+
 }

@@ -50,4 +50,14 @@ public class BankBranch {
     public int hashCode() {
         return Objects.hash(id, name, address);
     }
+
+    @Override
+    public String toString() {
+        return "BankBranch{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", filialId=" + filialId +
+                '}';
+    }
 }
