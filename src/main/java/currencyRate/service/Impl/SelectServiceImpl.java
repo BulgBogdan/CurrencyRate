@@ -33,7 +33,7 @@ public class SelectServiceImpl implements SelectService {
         } else {
             logger.error("Error, SelectCurrency not added");
         }
-        return selectRepository.saveAndFlush(select);
+        return select;
     }
 
     @Override
