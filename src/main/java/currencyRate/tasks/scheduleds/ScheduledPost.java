@@ -4,6 +4,8 @@ import currencyRate.tasks.component.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 @Component
 public class ScheduledPost {
 
@@ -29,15 +31,15 @@ public class ScheduledPost {
         this.vtb = vtb;
     }
 
-//    @PostConstruct
-//    public void createFilialsWithValues() {
-//        belarusbank.createAndUpdateValues();
-//        belagrpombank.createAndUpdateValues();
-//        belgazprombank.createAndUpdateValues();
-//        bsb.createAndUpdateValues();
-//        dabrabyt.createAndUpdateValues();
-//        absolutebank.createAndUpdateValues();
-//        mtb.createAndUpdateValues();
-//        vtb.createAndUpdateValues();
-//    }
+    @PostConstruct
+    public void createFilialsWithValues() {
+        belarusbank.createAndUpdateValues();
+        belagrpombank.createAndUpdateValues();
+        belgazprombank.createAndUpdateValues();
+        bsb.createAndUpdateValues();
+        dabrabyt.createAndUpdateValues();
+        absolutebank.createAndUpdateValues();
+        mtb.createAndUpdateValues();
+        vtb.createAndUpdateValues();
+    }
 }
