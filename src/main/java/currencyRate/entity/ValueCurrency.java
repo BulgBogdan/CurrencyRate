@@ -1,11 +1,17 @@
 package currencyRate.entity;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "currency_value", schema = "currency_rate")
 public class ValueCurrency {
@@ -44,5 +50,11 @@ public class ValueCurrency {
         return Objects.hash(id, value);
     }
 
-
+    @Override
+    public String toString() {
+        return "ValueCurrency{" +
+                "id=" + id +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }
