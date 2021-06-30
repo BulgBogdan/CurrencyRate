@@ -21,14 +21,13 @@
     </nav>
 
     <form class="form-inline my-2 my-lg-0" th:action="@{/}">
-        <select class="form-control mr-sm-0" id="city" name="city">
+        <select class="form-control mr-sm-0" id="city" name="city" onchange="this.form.submit()">
             <option th:each="citySelect : ${cities}"
                     th:value="${citySelect.getName()}"
                     th:text="${citySelect.getName()}"
                     th:selected="${citySelect.getName() == city}">
             </option>
         </select>
-        <button class="btn btn-outline-success my-2 my-sm-0">Выбрать</button>
     </form>
 
 
