@@ -9,9 +9,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
         .center {
-            width: 300px; /* Ширина элемента в пикселах */
-            padding: 10px; /* Поля вокруг текста */
-            margin: auto; /* Выравниваем по центру */
+            width: 300px;
+            padding: 10px;
+            margin: auto;
         }
     </style>
 </head>
@@ -25,28 +25,26 @@
     </nav>
 
     <form class="form-inline my-2 my-lg-0" th:action="@{/}">
-        <select class="form-control mr-sm-0" id="city" name="city">
+        <select class="form-control mr-sm-0" id="city" name="city" onchange="this.form.submit()">
             <option th:each="citySelect : ${cities}"
                     th:value="${citySelect.getName()}"
                     th:text="${citySelect.getName()}"
                     th:selected="${citySelect.getName().equals(city)}">
             </option>
         </select>
-        <button class="btn btn-outline-success my-2 my-sm-0">Выбрать</button>
     </form>
 
 </header>
 <div class="center">
     <p>Выбранный тип валюты: </p>
     <form class="form-inline my-2 my-lg-0" th:action="@{/courses/__${city}__}">
-        <select class="form-control mr-sm-0" id="type" th:name="type">
+        <select class="form-control mr-sm-0" id="type" th:name="type" onchange="this.form.submit()">
             <option th:each="typeSelected : ${types}"
                     th:value="${typeSelected.getName()}"
                     th:text="${typeSelected.getName().equalsIgnoreCase('RUB')} ? '100 RUB' : ${typeSelected.getName()}"
                     th:selected="${typeSelected.getName().equals(type)}">
             </option>
         </select>
-        <button class="btn btn-outline-success">Выбрать</button>
     </form>
 </div>
 
